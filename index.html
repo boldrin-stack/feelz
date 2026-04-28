@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Feelz by Mindcafe — Hit the flow</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Boldonse&family=Instrument+Serif:ital@0;1&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --focus-top: #0B5DBB;
+  --focus-bot: #00B7A7;
+  --extro-top: #E73C7E;
+  --extro-bot: #FFBA3D;
+  --joy-top:   #FFC107;
+  --joy-bot:   #FFBA3D;
+  --sleep-top: #4B28BE;
+  --sleep-bot: #FFBA3D;
+  --ink: #0c0a09;
+  --paper: #fef9f3;
+  --grain: rgba(12, 10, 9, 0.04);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Mono', monospace;
+  background: var(--paper);
+  color: var(--ink);
+  overflow-x: hidden;
+  position: relative;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 1px 1px, var(--grain) 1px, transparent 0);
+  background-size: 4px 4px;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.6;
+}
+
+/* ============ STICKY NAV ============ */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 18px 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  mix-blend-mode: difference;
+  color: white;
+}
+
+nav .brand {
+  font-family: 'Boldonse', sans-serif;
+  font-size: 22px;
+  letter-spacing: -0.02em;
+  display: flex;
+  align-items: baseline;
+  gap: 2px;
+}
+nav .brand .strike { position: relative; }
+nav .brand .strike::after {
+  content: '';
+  position: absolute;
+  left: -2px; right: -2px;
+  top: 52%;
+  height: 2px;
+  background: currentColor;
+}
+nav .brand small {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  font-size: 13px;
+  font-weight: 400;
+  margin-left: 8px;
+  letter-spacing: 0;
+}
+
+nav .waitlist-btn {
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 10px 18px;
+  border: 1.5px solid currentColor;
+  border-radius: 100px;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform 0.2s;
+}
+nav .waitlist-btn:hover { transform: scale(1.05) rotate(-2deg); }
+
+/* ============ HERO ============ */
+.hero {
+  min-height: 100vh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 120px 24px 60px;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  opacity: 0.85;
+  animation: cycleGradient 20s ease-in-out infinite;
+}
+
+@keyframes cycleGradient {
+  0%, 20%   { background: linear-gradient(180deg, #0B5DBB 0%, #00B7A7 100%); }
+  25%, 45%  { background: linear-gradient(180deg, #E73C7E 0%, #FFBA3D 100%); }
+  50%, 70%  { background: linear-gradient(180deg, #FFC107 0%, #FFBA3D 100%); }
+  75%, 95%  { background: linear-gradient(180deg, #4B28BE 0%, #FFBA3D 100%); }
+  100%      { background: linear-gradient(180deg, #0B5DBB 0%, #00B7A7 100%); }
+}
+
+/* floating strips */
+.strip {
+  position: absolute;
+  width: 220px;
+  height: 80px;
+  border-radius: 12px;
+  z-index: 1;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Boldonse', sans-serif;
+  color: white;
+  font-size: 24px;
+  letter-spacing: 0.05em;
+}
+.strip::before {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  border: 1px dashed rgba(255,255,255,0.4);
+  border-radius: 8px;
+}
+.strip-1 {
+  top: 18%; left: 8%;
+  background: linear-gradient(135deg, #0B5DBB, #00B7A7);
+  transform: rotate(-15deg);
+  animation: float1 8s ease-in-out infinite;
+}
+.strip-2 {
+  top: 22%; right: 6%;
+  background: linear-gradient(135deg, #E73C7E, #FFBA3D);
+  transform: rotate(12deg);
+  animation: float2 9s ease-in-out infinite;
+}
+.strip-3 {
+  bottom: 20%; left: 10%;
+  background: linear-gradient(135deg, #FFC107, #FFBA3D);
+  transform: rotate(8deg);
+  animation: float3 7s ease-in-out infinite;
+}
+.strip-4 {
+  bottom: 18%; right: 9%;
+  background: linear-gradient(135deg, #4B28BE, #FFBA3D);
+  transform: rotate(-10deg);
+  animation: float4 10s ease-in-out infinite;
+}
+@keyframes float1 { 0%,100%{transform:rotate(-15deg) translateY(0)} 50%{transform:rotate(-12deg) translateY(-20px)} }
+@keyframes float2 { 0%,100%{transform:rotate(12deg) translateY(0)} 50%{transform:rotate(15deg) translateY(-25px)} }
+@keyframes float3 { 0%,100%{transform:rotate(8deg) translateY(0)} 50%{transform:rotate(5deg) translateY(-18px)} }
+@keyframes float4 { 0%,100%{transform:rotate(-10deg) translateY(0)} 50%{transform:rotate(-13deg) translateY(-22px)} }
+
+.hero-content {
+  position: relative;
+  z-index: 5;
+  text-align: center;
+  color: white;
+  max-width: 900px;
+}
+
+.hero-eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+  opacity: 0.9;
+  display: inline-block;
+  padding: 8px 16px;
+  border: 1px solid rgba(255,255,255,0.5);
+  border-radius: 100px;
+  backdrop-filter: blur(6px);
+  background: rgba(255,255,255,0.08);
+}
+
+.hero h1 {
+  font-family: 'Boldonse', sans-serif;
+  font-size: clamp(80px, 16vw, 220px);
+  line-height: 0.85;
+  letter-spacing: -0.04em;
+  margin-bottom: 20px;
+}
+.hero h1 .strike { position: relative; display: inline-block; }
+.hero h1 .strike::after {
+  content: '';
+  position: absolute;
+  left: -4px; right: -4px;
+  top: 52%;
+  height: 6px;
+  background: white;
+  transform: rotate(-2deg);
+}
+
+.hero h1 .by {
+  display: block;
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: clamp(20px, 3vw, 36px);
+  letter-spacing: 0;
+  margin-top: -12px;
+  text-transform: lowercase;
+  opacity: 0.95;
+}
+
+.hero-tagline {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  font-size: clamp(20px, 2.5vw, 30px);
+  font-weight: 400;
+  margin-bottom: 40px;
+  opacity: 0.95;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.3;
+}
+
+.hero-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 36px;
+  background: white;
+  color: var(--ink);
+  font-family: 'DM Mono', monospace;
+  font-size: 14px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  border-radius: 100px;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.hero-cta:hover { transform: scale(1.08) rotate(-1deg); }
+.hero-cta .arrow { transition: transform 0.3s; }
+.hero-cta:hover .arrow { transform: translateX(4px); }
+
+/* badges */
+.badges {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 12px;
+  z-index: 5;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 0 16px;
+}
+.badge {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: white;
+  padding: 8px 14px;
+  border: 1px solid rgba(255,255,255,0.4);
+  border-radius: 100px;
+  backdrop-filter: blur(6px);
+  background: rgba(255,255,255,0.1);
+}
+.badge.rotate-l { transform: rotate(-3deg); }
+.badge.rotate-r { transform: rotate(3deg); }
+
+/* ============ MOOD PICKER ============ */
+.mood-picker {
+  background: var(--paper);
+  padding: 100px 24px;
+  position: relative;
+  z-index: 2;
+}
+.mood-picker .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+.mood-picker h2 {
+  font-family: 'Boldonse', sans-serif;
+  font-size: clamp(40px, 6vw, 80px);
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+  margin-bottom: 16px;
+}
+.mood-picker h2 em {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  font-weight: 400;
+}
+.mood-picker .sub {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  font-size: 22px;
+  margin-bottom: 56px;
+  opacity: 0.7;
+}
+
+.mood-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.mood-btn {
+  position: relative;
+  padding: 32px 24px;
+  border-radius: 24px;
+  border: none;
+  cursor: pointer;
+  font-family: 'Boldonse', sans-serif;
+  color: white;
+  text-align: left;
+  overflow: hidden;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.mood-btn:hover { transform: translateY(-8px) rotate(-1deg); }
+.mood-btn .mood-emoji {
+  font-size: 40px;
+  font-family: 'Instrument Serif', serif;
+}
+.mood-btn .mood-label {
+  font-size: 32px;
+  letter-spacing: -0.02em;
+}
+.mood-btn .mood-desc {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  font-size: 14px;
+  font-weight: 400;
+  opacity: 0.95;
+  margin-top: 6px;
+  letter-spacing: 0;
+}
+
+.mood-btn[data-mood="focus"]   { background: linear-gradient(160deg, #0B5DBB, #00B7A7); }
+.mood-btn[data-mood="extrovert"]{ background: linear-gradient(160deg, #E73C7E, #FFBA3D); }
+.mood-btn[data-mood="joy"]     { background: linear-gradient(160deg, #FFC107, #FFBA3D); color: #1a1a1a; }
+.mood-btn[data-mood="sleep"]   { background: linear-gradient(160deg, #4B28BE, #FFBA3D); }
+
+/* ============ PRODUCTS ============ */
+.product {
+  min-height: 100vh;
+  padding: 100px 24px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  z-index: 2;
+  scroll-margin-top: 0;
+  overflow: hidden;
+}
+.product#focus      { background: linear-gradient(180deg, #0B5DBB, #00B7A7); color: white; }
+.product#extrovert  { background: linear-gradient(180deg, #E73C7E, #FFBA3D); color: white; }
+.product#joy        { background: linear-gradient(180deg, #FFC107, #FFBA3D); color: #1a1a1a; }
+.product#sleep      { background: linear-gradient(180deg, #4B28BE, #FFBA3D); color: white; }
+
+.product .inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.product-visual {
+  position: relative;
+  height: 480px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.product-pack {
+  width: 320px;
+  height: 420px;
+  border-radius: 16px;
+  background: rgba(255,255,255,0.12);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.25);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.25);
+  transform: rotate(-3deg);
+  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.product-pack:hover { transform: rotate(0deg) scale(1.02); }
+
+.product-pack .pack-brand {
+  font-family: 'Boldonse', sans-serif;
+  font-size: 13px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  opacity: 0.85;
+  margin-bottom: 24px;
+}
+.product-pack .pack-name {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  font-size: 64px;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  margin-bottom: 8px;
+}
+.product-pack .pack-name .strike { position: relative; }
+.product-pack .pack-name .strike::after {
+  content: '';
+  position: absolute;
+  left: -2px; right: -2px;
+  top: 52%;
+  height: 3px;
+  background: currentColor;
+}
+.product-pack .pack-variant {
+  font-family: 'Boldonse', sans-serif;
+  font-size: 38px;
+  letter-spacing: -0.02em;
+  margin-bottom: 24px;
+  text-transform: uppercase;
+}
+.product-pack .pack-tag {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  font-size: 16px;
+  text-align: center;
+  opacity: 0.9;
+  border-top: 1px solid rgba(255,255,255,0.3);
+  border-bottom: 1px solid rgba(255,255,255,0.3);
+  padding: 12px 0;
+  margin-bottom: 24px;
+}
+.product-pack .pack-strip-icon {
+  width: 60px;
+  height: 22px;
+  border-radius: 4px;
+  background: rgba(255,255,255,0.4);
+  border: 1px dashed rgba(255,255,255,0.6);
+  margin-bottom: 12px;
+}
+.product-pack .pack-meta {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+
+#joy .product-pack { color: #1a1a1a; }
+#joy .product-pack .pack-strip-icon { background: rgba(0,0,0,0.15); border-color: rgba(0,0,0,0.3); }
+
+.product-info .eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  opacity: 0.8;
+  margin-bottom: 16px;
+  display: inline-block;
+  padding: 6px 14px;
+  border: 1px solid currentColor;
+  border-radius: 100px;
+}
+
+.product-info h3 {
+  font-family: 'Boldonse', sans-serif;
+  font-size: clamp(60px, 9vw, 130px);
+  line-height: 0.85;
+  letter-spacing: -0.04em;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+}
+
+.product-info .lead {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  font-size: clamp(22px, 2.5vw, 30px);
+  line-height: 1.3;
+  margin-bottom: 32px;
+  max-width: 480px;
+}
+
+.product-info .composition {
+  margin-bottom: 32px;
+}
+.product-info .composition-title {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  opacity: 0.8;
+}
+.product-info .ingredient {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid currentColor;
+  font-family: 'DM Mono', monospace;
+  font-size: 13px;
+  max-width: 380px;
+}
+.product-info .ingredient:first-of-type { border-top: 1px solid currentColor; }
+.product-info .ingredient .name { letter-spacing: 0.02em; }
+.product-info .ingredient .amt { opacity: 0.7; }
+
+.product-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.btn-primary, .btn-secondary {
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 16px 28px;
+  border-radius: 100px;
+  cursor: pointer;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  border: 1.5px solid currentColor;
+}
+.btn-primary {
+  background: white;
+  color: #1a1a1a;
+  border-color: white;
+}
+.btn-secondary {
+  background: transparent;
+  color: inherit;
+}
+.btn-primary:hover, .btn-secondary:hover { transform: scale(1.05) rotate(-1deg); }
+
+#joy .btn-primary { background: #1a1a1a; color: white; border-color: #1a1a1a; }
+
+/* sticker */
+.sticker {
+  position: absolute;
+  font-family: 'Boldonse', sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  background: white;
+  color: #1a1a1a;
+  padding: 12px 16px;
+  border-radius: 50%;
+  width: 90px;
+  height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  text-transform: uppercase;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+  line-height: 1.1;
+}
+#focus .sticker { top: 40px; right: 60px; transform: rotate(15deg); background: #FFC107; }
+#extrovert .sticker { bottom: 60px; left: 40px; transform: rotate(-12deg); background: #4B28BE; color: white; }
+#joy .sticker { top: 60px; left: 30px; transform: rotate(-18deg); background: #0B5DBB; color: white; }
+#sleep .sticker { bottom: 80px; right: 40px; transform: rotate(10deg); background: #FFC107; color: #1a1a1a; }
+
+/* ============ WHY STRIPS ============ */
+.why-strips {
+  background: var(--paper);
+  padding: 120px 24px;
+  position: relative;
+  z-index: 2;
+}
+.why-strips .container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.why-strips h2 {
+  font-family: 'Boldonse', sans-serif;
+  font-size: clamp(48px, 8vw, 110px);
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  max-width: 900px;
+  margin-bottom: 60px;
+}
+.why-strips h2 em {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  font-weight: 400;
+}
+
+.reasons {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 24px;
+}
+.reason {
+  padding: 32px 24px;
+  background: white;
+  border: 1px solid rgba(0,0,0,0.08);
+  border-radius: 20px;
+  position: relative;
+  transition: transform 0.3s;
+}
+.reason:nth-child(odd) { transform: rotate(-1deg); }
+.reason:nth-child(even) { transform: rotate(1deg); }
+.reason:hover { transform: rotate(0) translateY(-6px); }
+
+.reason .num {
+  font-family: 'Boldonse', sans-serif;
+  font-size: 14px;
+  letter-spacing: 0.1em;
+  margin-bottom: 16px;
+  opacity: 0.4;
+}
+.reason h4 {
+  font-family: 'Boldonse', sans-serif;
+  font-size: 26px;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+}
+.reason p {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  font-size: 17px;
+  line-height: 1.4;
+  opacity: 0.75;
+}
+
+/* ============ FINAL CTA ============ */
+.final-cta {
+  background: var(--ink);
+  color: white;
+  padding: 140px 24px;
+  position: relative;
+  overflow: hidden;
+  z-index: 2;
+  text-align: center;
+}
+.final-cta .blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: 0.6;
+}
+.final-cta .blob-1 { width: 500px; height: 500px; background: #E73C7E; top: -100px; left: -100px; }
+.final-cta .blob-2 { width: 400px; height: 400px; background: #00B7A7; bottom: -100px; right: -100px; }
+.final-cta .blob-3 { width: 300px; height: 300px; background: #FFC107; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+
+.final-cta .container { position: relative; z-index: 2; max-width: 800px; margin: 0 auto; }
+.final-cta h2 {
+  font-family: 'Boldonse', sans-serif;
+  font-size: clamp(56px, 10vw, 140px);
+  line-height: 0.85;
+  letter-spacing: -0.04em;
+  margin-bottom: 24px;
+}
+.final-cta h2 em {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  font-weight: 400;
+}
+.final-cta p {
+  font-family: 'Instrument Serif', serif;
+  font-style: italic;
+  font-size: clamp(20px, 2.5vw, 26px);
+  margin-bottom: 48px;
+  opacity: 0.85;
+}
+
+.waitlist-form {
+  display: flex;
+  gap: 12px;
+  max-width: 520px;
+  margin: 0 auto;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.waitlist-form input {
+  flex: 1;
+  min-width: 240px;
+  padding: 18px 24px;
+  font-family: 'DM Mono', monospace;
+  font-size: 14px;
+  border: 1.5px solid rgba(255,255,255,0.3);
+  background: rgba(255,255,255,0.05);
+  color: white;
+  border-radius: 100px;
+  outline: none;
+  transition: border-color 0.3s;
+}
+.waitlist-form input::placeholder { color: rgba(255,255,255,0.4); }
+.waitlist-form input:focus { border-color: white; }
+.waitlist-form button {
+  padding: 18px 32px;
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  background: white;
+  color: var(--ink);
+  border: none;
+  border-radius: 100px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.waitlist-form button:hover { transform: scale(1.05) rotate(-1deg); }
+
+.footer-meta {
+  margin-top: 60px;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  opacity: 0.5;
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width: 768px) {
+  .strip { width: 140px; height: 50px; font-size: 16px; }
+  .product .inner { grid-template-columns: 1fr; gap: 40px; }
+  .product-visual { height: 400px; }
+  .product-pack { width: 260px; height: 360px; padding: 24px; }
+  .product-pack .pack-name { font-size: 48px; }
+  .product-pack .pack-variant { font-size: 28px; }
+  nav { padding: 14px 18px; }
+  nav .brand small { display: none; }
+  .hero { padding: 100px 18px 100px; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="brand">Feel<span class="strike">z</span><small>by Mindcafe</small></div>
+  <a href="#waitlist" class="waitlist-btn">Join waitlist</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+
+  <div class="strip strip-1">FOCUS</div>
+  <div class="strip strip-2">EXTROVERT</div>
+  <div class="strip strip-3">JOY</div>
+  <div class="strip strip-4">SLEEP</div>
+
+  <div class="hero-content">
+    <span class="hero-eyebrow">◉ Incubated at Zo House</span>
+    <h1>Feel<span class="strike">z</span><span class="by">by Mindcafe</span></h1>
+    <p class="hero-tagline">A paper-thin strip. Sixty seconds on the tongue. Four moods, on demand.</p>
+    <a href="#mood" class="hero-cta">
+      <span>Hit the flow</span>
+      <span class="arrow">→</span>
+    </a>
+  </div>
+
+  <div class="badges">
+    <span class="badge rotate-l">FSSAI ✓</span>
+    <span class="badge rotate-r">No Sugar</span>
+    <span class="badge rotate-l">No Water Needed</span>
+    <span class="badge rotate-r">Made in India</span>
+  </div>
+</section>
+
+<!-- MOOD PICKER -->
+<section class="mood-picker" id="mood">
+  <div class="container">
+    <h2>What <em>mood</em> are<br>you in?</h2>
+    <p class="sub">tap one. we'll take you there.</p>
+
+    <div class="mood-grid">
+      <button class="mood-btn" data-mood="focus" onclick="document.getElementById('focus').scrollIntoView()">
+        <div class="mood-emoji">◉</div>
+        <div>
+          <div class="mood-label">FOCUS</div>
+          <div class="mood-desc">deadline brain, deep work, the zone</div>
+        </div>
+      </button>
+      <button class="mood-btn" data-mood="extrovert" onclick="document.getElementById('extrovert').scrollIntoView()">
+        <div class="mood-emoji">✦</div>
+        <div>
+          <div class="mood-label">EXTROVERT</div>
+          <div class="mood-desc">pre-party, networking, big energy</div>
+        </div>
+      </button>
+      <button class="mood-btn" data-mood="joy" onclick="document.getElementById('joy').scrollIntoView()">
+        <div class="mood-emoji">☀</div>
+        <div>
+          <div class="mood-label">JOY</div>
+          <div class="mood-desc">monday slump, mood lift, soft glow</div>
+        </div>
+      </button>
+      <button class="mood-btn" data-mood="sleep" onclick="document.getElementById('sleep').scrollIntoView()">
+        <div class="mood-emoji">☾</div>
+        <div>
+          <div class="mood-label">SLEEP</div>
+          <div class="mood-desc">brain won't shut up, lights out</div>
+        </div>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- FOCUS -->
+<section class="product" id="focus">
+  <div class="sticker">60s<br>on tongue</div>
+  <div class="inner">
+    <div class="product-visual">
+      <div class="product-pack">
+        <div class="pack-brand">◉ Zostel × Mindcafe</div>
+        <div class="pack-name">Feel<span class="strike">z</span></div>
+        <div class="pack-variant">Focus</div>
+        <div class="pack-tag">For Cognitive Clarity, Focus and Calm</div>
+        <div class="pack-strip-icon"></div>
+        <div class="pack-meta">30 strips · 4.5g · oral thin film</div>
+      </div>
+    </div>
+    <div class="product-info">
+      <span class="eyebrow">Variant 01 · Focus</span>
+      <h3>Focus</h3>
+      <p class="lead">Deadline brain, on demand. Cognitive clarity without the jitters of another coffee.</p>
+      <div class="composition">
+        <div class="composition-title">Composition per strip</div>
+        <div class="ingredient"><span class="name">Gotu Kola Extract</span><span class="amt">60mg</span></div>
+        <div class="ingredient"><span class="name">L-Theanine</span><span class="amt">50mg</span></div>
+        <div class="ingredient"><span class="name">Saffron Extract</span><span class="amt">30mg</span></div>
+        <div class="ingredient"><span class="name">BioPerine®</span><span class="amt">5mg</span></div>
+      </div>
+      <div class="product-actions">
+        <button class="btn-primary">Buy now →</button>
+        <button class="btn-secondary">Notify me when Focus drops</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXTROVERT -->
+<section class="product" id="extrovert">
+  <div class="sticker">no<br>water<br>needed</div>
+  <div class="inner">
+    <div class="product-visual">
+      <div class="product-pack">
+        <div class="pack-brand">◉ Zostel × Mindcafe</div>
+        <div class="pack-name">Feel<span class="strike">z</span></div>
+        <div class="pack-variant">Extrovert</div>
+        <div class="pack-tag">For Confidence, Energy and Social Vitality</div>
+        <div class="pack-strip-icon"></div>
+        <div class="pack-meta">30 strips · 4.5g · oral thin film</div>
+      </div>
+    </div>
+    <div class="product-info">
+      <span class="eyebrow">Variant 02 · Extrovert</span>
+      <h3>Extrovert</h3>
+      <p class="lead">Pre-game for the room. Social vitality and clean energy when the party needs you on.</p>
+      <div class="composition">
+        <div class="composition-title">Composition per strip</div>
+        <div class="ingredient"><span class="name">Ginger</span><span class="amt">30mg</span></div>
+        <div class="ingredient"><span class="name">Shatavari</span><span class="amt">25mg</span></div>
+        <div class="ingredient"><span class="name">Ashwagandha</span><span class="amt">20mg</span></div>
+        <div class="ingredient"><span class="name">Vitamin B6</span><span class="amt">154% RDA</span></div>
+      </div>
+      <div class="product-actions">
+        <button class="btn-primary">Buy now →</button>
+        <button class="btn-secondary">Notify me when Extrovert drops</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- JOY -->
+<section class="product" id="joy">
+  <div class="sticker">soft<br>glow<br>era</div>
+  <div class="inner">
+    <div class="product-visual">
+      <div class="product-pack">
+        <div class="pack-brand">◉ Zostel × Mindcafe</div>
+        <div class="pack-name">Feel<span class="strike">z</span></div>
+        <div class="pack-variant">Joy</div>
+        <div class="pack-tag">For Mood, Calm and Inner Happiness</div>
+        <div class="pack-strip-icon"></div>
+        <div class="pack-meta">30 strips · 4.5g · oral thin film</div>
+      </div>
+    </div>
+    <div class="product-info">
+      <span class="eyebrow">Variant 03 · Joy</span>
+      <h3>Joy</h3>
+      <p class="lead">For the Monday slump and the rainy Tuesday. A softer brain, a warmer mood.</p>
+      <div class="composition">
+        <div class="composition-title">Composition per strip</div>
+        <div class="ingredient"><span class="name">L-Theanine</span><span class="amt">30mg</span></div>
+        <div class="ingredient"><span class="name">Brahmi</span><span class="amt">25mg</span></div>
+        <div class="ingredient"><span class="name">Ashwagandha</span><span class="amt">40mg</span></div>
+        <div class="ingredient"><span class="name">Jatamansi</span><span class="amt">20mg</span></div>
+      </div>
+      <div class="product-actions">
+        <button class="btn-primary">Buy now →</button>
+        <button class="btn-secondary">Notify me when Joy drops</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLEEP -->
+<section class="product" id="sleep">
+  <div class="sticker">brain<br>off<br>mode</div>
+  <div class="inner">
+    <div class="product-visual">
+      <div class="product-pack">
+        <div class="pack-brand">◉ Zostel × Mindcafe</div>
+        <div class="pack-name">Feel<span class="strike">z</span></div>
+        <div class="pack-variant">Sleep</div>
+        <div class="pack-tag">For Restful Sleep and Relaxed Mind</div>
+        <div class="pack-strip-icon"></div>
+        <div class="pack-meta">30 strips · 4.5g · oral thin film</div>
+      </div>
+    </div>
+    <div class="product-info">
+      <span class="eyebrow">Variant 04 · Sleep</span>
+      <h3>Sleep</h3>
+      <p class="lead">When the brain won't shut up. 20 minutes before bed, lights out cleanly.</p>
+      <div class="composition">
+        <div class="composition-title">Composition per strip</div>
+        <div class="ingredient"><span class="name">L-Theanine</span><span class="amt">25mg</span></div>
+        <div class="ingredient"><span class="name">Brahmi</span><span class="amt">20mg</span></div>
+        <div class="ingredient"><span class="name">Ashwagandha</span><span class="amt">20mg</span></div>
+        <div class="ingredient"><span class="name">Melatonin</span><span class="amt">3mg</span></div>
+      </div>
+      <div class="product-actions">
+        <button class="btn-primary">Buy now →</button>
+        <button class="btn-secondary">Notify me when Sleep drops</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY STRIPS -->
+<section class="why-strips">
+  <div class="container">
+    <h2>Why <em>strips</em>, not<br>another gummy?</h2>
+    <div class="reasons">
+      <div class="reason">
+        <div class="num">/01</div>
+        <h4>60 second onset</h4>
+        <p>Sublingual absorption skips the gut. You feel it in a song, not in an hour.</p>
+      </div>
+      <div class="reason">
+        <div class="num">/02</div>
+        <h4>Pocket-tiny</h4>
+        <p>4×2.5×1 inch box. Twenty grams. Lives in a wallet, a hoodie, a clutch.</p>
+      </div>
+      <div class="reason">
+        <div class="num">/03</div>
+        <h4>No sugar, no water</h4>
+        <p>Not a gummy. Not a pill. Just plant extracts on a thin film of pullulan.</p>
+      </div>
+      <div class="reason">
+        <div class="num">/04</div>
+        <h4>Made for India</h4>
+        <p>FSSAI compliant. Ayurveda-led formulations. Manufactured by Mindcafe.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta" id="waitlist">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+  <div class="container">
+    <h2>Get the<br><em>founder's</em> drop.</h2>
+    <p>First 500 on the list get the full four-pack at launch price + a Zo House sticker pack.</p>
+    <form class="waitlist-form" onsubmit="event.preventDefault(); this.querySelector('button').textContent='You're in ✓';">
+      <input type="email" placeholder="your@email.com" required />
+      <button type="submit">Count me in</button>
+    </form>
+    <div class="footer-meta">
+      <span>© Feelz by Mindcafe</span>
+      <span>Distribution: Zostel</span>
+      <span>FSSAI compliant</span>
+      <span>@feelsmindcafe</span>
+    </div>
+  </div>
+</section>
+
+<script>
+// scroll-tied tint on body bg shifts paper undertone
+const products = ['focus', 'extrovert', 'joy', 'sleep'];
+const tints = {
+  focus: '#e8f4f8',
+  extrovert: '#fff0e8',
+  joy: '#fff8e0',
+  sleep: '#f0e8ff'
+};
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting && tints[e.target.id]) {
+      document.documentElement.style.setProperty('--paper', tints[e.target.id]);
+    }
+  });
+}, { threshold: 0.5 });
+
+products.forEach(id => {
+  const el = document.getElementById(id);
+  if (el) observer.observe(el);
+});
+
+// reset paper on hero / picker / why
+['mood', 'waitlist'].forEach(id => {
+  const el = document.getElementById(id);
+  if (el) {
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          document.documentElement.style.setProperty('--paper', '#fef9f3');
+        }
+      });
+    }, { threshold: 0.3 });
+    obs.observe(el);
+  }
+});
+</script>
+
+</body>
+</html>
